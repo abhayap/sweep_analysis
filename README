@@ -1,0 +1,42 @@
+This is supposed to become a small toolbox to perform impulse response
+measurements by sine sweeps.
+
+(currently it's just fragments)
+
+Tools included
+--------------
+
+* gen_log_sine_sweep.py
+
+  Used to generate a logarithmic (in frequency) sine sweep, as a 16bit
+  mono wav file.
+
+	Usage: gen_log_sine_sweep.py [options] output.wav
+
+	Options:
+	  -h, --help            show this help message and exit
+	  -r HZ, --rate=HZ      Sample rate, default is 48 kHz
+	  -I HZ, --fmin=HZ      Minimum frequency, default is 15 Hz
+	  -A HZ, --fmax=HZ      Maximum frequency, default is 22 kHz
+	  -d sec, --duration=sec
+				Duration of sweep, default is 10s
+	  -f sec, --fadein=sec  Fadein duration, default is 10 ms
+	  -s sec, --silence=sec
+				Amount of silence around sweep, default is 1s
+	  -e, --equalize        Equalize sweep with -3dB/octave to ensure uniform
+				power density.
+	  -a dB, --attenuate=dB
+				Attenuate by dB (e.g. 6 dB = half FS amplitude)
+
+  As an example, when running the program as shown below
+  one gets the following output to stdout, and a resulting wave file
+  sweep.wav with a logarithmig sine sweep in it.
+
+	$ ./gen_log_sine_sweep.py -e -a 5.0 -d 5.0 -s 0.5 sweep.wav
+	Samplerate used is 48000 Hz
+	Generating a sine sweep from 15.000000 Hz to 22000.000000 Hz
+	Full scale is 18426 LSB (-5.000000 dB FS of 16bit wav)
+	Sweep covers 10.518325 octaves, apply a 3dB/octave equalization.
+	Generating a fadein/fadeout of 0.010000 seconds.
+	Prepending and appending 0.500000 seconds of silence.
+	Writing a total of 288000 samples.
